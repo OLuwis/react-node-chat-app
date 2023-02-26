@@ -13,6 +13,7 @@ RoadMap:
 
 Stack:
 
+- [TypeScript](https://github.com/microsoft/TypeScript)
 - [ReactJS](https://github.com/facebook/react)
 - [React-Router](https://github.com/remix-run/react-router)
 - [NodeJS](https://github.com/nodejs/node)
