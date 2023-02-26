@@ -2,7 +2,7 @@
 
 This is a Portfolio Chat App Project made to show of the capabilities of WebSockets and Realtime communication.
 
-It currently offers a single room/channel to chat e interact.
+It currently offers a single room/channel to chat and interact.
 
 RoadMap: 
 
