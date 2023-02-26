@@ -13,12 +13,9 @@ const dbClient = new pg_1.Pool({
 });
 const io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: "http://localhost:3001",
+        origin: "http://localhost:5173",
     }
 });
 io.on("connection", (socket) => {
-    socket.on("new action", (msg) => {
-        dbClient.query(`INSERT INTO public.messages (message_user, message) VALUES ('test user', 'third test text')`);
-    });
 });
 httpServer.listen(3000);

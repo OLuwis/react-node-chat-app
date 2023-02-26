@@ -24,7 +24,7 @@ export default function ChatBody() {
                     </div>
                 </div>
                 <form className="md:p-4 p-2 flex items-center justify-center md:gap-4 gap-2 h-auto">
-                    <textarea name="text_input" id="text_input" placeholder="Type your message here..." className="w-full p-2 shadow-sm rounded-md border-2 focus:outline-purple-500 border-purple-300 placeholder:text-gray-500 resize-none py-1 pb-2 overflow-hidden" onChange={(e) => setMessage(e.target.value)} ref={textAreaRef} style={{minHeight: "3.5rem"}}>{message}</textarea>
+                    <textarea name="text_input" id="text_input" placeholder="Type your message here..." className="w-full p-2 shadow-sm rounded-md border-2 focus:outline-purple-500 border-purple-300 placeholder:text-gray-500 resize-none py-1 pb-2 overflow-hidden" onChange={(e) => setMessage(e.target.value)} ref={textAreaRef} style={{minHeight: "3.5rem"}} value={message}></textarea>
                     <button type="submit" className="bg-purple-600 text-white h-14 w-20 rounded-md hover:bg-purple-500 shadow-sm font-medium place-self-end">Send</button>
                 </form>
             </div>
