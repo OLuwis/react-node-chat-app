@@ -3,19 +3,22 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import SignIn from './components/SignIn';
 import ChatLayout from './components/ChatLayout';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { io } from "socket.io-client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const socket = io("http://localhost:3000", {
+  autoConnect: false,
+  secure: false
+})
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SignIn />,
+    element: <SignIn socket={socket}/>,
   },
   {
     path: "/chat",
-    element: <ChatLayout />
+    element: <ChatLayout socket={socket}/>
   }
 ]);
 
