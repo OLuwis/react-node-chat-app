@@ -1,16 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { Pool } from "pg";
 
 const httpServer = createServer();
-
-const dbClient = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "postgres",
-    password: "Luis2609",
-    port: 5432
-});
 
 const io = new Server(httpServer, {
     cors: {
@@ -18,22 +9,31 @@ const io = new Server(httpServer, {
     }
 });
 
-let users:string[] = []
+let users:{ user: string, id: string }[] = [];
+
+let messages:{ user: string, message: string, id: string }[] = [];
 
 io.on("connection", (socket) => {
     if (socket.handshake.auth.name) {
-        users = users.concat(socket.handshake.auth.name)
-        console.log(users)
-        console.log(users.length)
-    }
-    io.emit("userCount", users.length)
-    io.emit("users", users)
+        users = users.concat({ 
+            user: socket.handshake.auth.name,
+            id: socket.id
+        });
+        io.emit("userCount", users.length);
+        io.emit("users", users);
+        io.emit("messages", messages)
+        console.log(users);
+        console.log(users.length);
+    };
     socket.on("disconnect", () => {
-        users = users.filter(user => user !== socket.handshake.auth.name)
-        io.emit("userCount", users.length)
-        io.emit("users", users)
-    })
-    socket.on("message", message => io.emit("message", message))
+        users = users.filter(user => user.id !== socket.id);
+        io.emit("userCount", users.length);
+        io.emit("users", users);
+    });
+    socket.on("message", (message) => {
+        messages = messages.concat({ user:message.user, message: message.message, id: message.id })
+        io.emit("messages", messages)
+    });
 });
 
 httpServer.listen(3000);

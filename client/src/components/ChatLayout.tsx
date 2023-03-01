@@ -1,7 +1,7 @@
-import ChatHeader from "./ChatHeader"
-import ChatSideBar from "./ChatSideBar"
-import ChatBody from "./ChatBody"
-import { Socket } from "socket.io-client"
+import ChatHeader from "./ChatHeader";
+import ChatSideBar from "./ChatSideBar";
+import ChatBody from "./ChatBody";
+import { Socket } from "socket.io-client";
 
 export default function ChatLayout({ socket }: {socket: Socket}) {
     return (
