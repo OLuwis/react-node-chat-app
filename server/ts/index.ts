@@ -22,8 +22,6 @@ io.on("connection", (socket) => {
         io.emit("userCount", users.length);
         io.emit("users", users);
         io.emit("messages", messages)
-        console.log(users);
-        console.log(users.length);
     };
     socket.on("disconnect", () => {
         users = users.filter(user => user.id !== socket.id);
@@ -35,5 +33,7 @@ io.on("connection", (socket) => {
         io.emit("messages", messages)
     });
 });
+
+console.log("Server running");
 
 httpServer.listen(3000);

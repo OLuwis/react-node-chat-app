@@ -19,8 +19,6 @@ io.on("connection", (socket) => {
         io.emit("userCount", users.length);
         io.emit("users", users);
         io.emit("messages", messages);
-        console.log(users);
-        console.log(users.length);
     }
     ;
     socket.on("disconnect", () => {
@@ -33,4 +31,5 @@ io.on("connection", (socket) => {
         io.emit("messages", messages);
     });
 });
+console.log("Server is running on port 3000");
 httpServer.listen(3000);
