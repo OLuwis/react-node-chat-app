@@ -1,23 +1,12 @@
+import express from "express";
+import cors from "cors";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-const httpServer = createServer((req, res) => {
-    const headers = {
-        "Access-Control-Allow-Origin": process.env.CLIENT_URL || "*",
-        "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
-        "Access-Control-Max-Age": 2592000, // 30 days
-        /** add other headers as per requirement */
-        };
+const app = express();
+app.use(cors())
 
-        if (req.method === "OPTIONS") {
-        res.writeHead(204, headers);
-        res.end();
-        return;
-        }
-
-        res.writeHead(405, headers);
-        res.end(`${req.method} is not allowed for the request.`);
-});
+const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
     cors: {

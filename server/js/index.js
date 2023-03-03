@@ -1,24 +1,15 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const http_1 = require("http");
 const socket_io_1 = require("socket.io");
-const httpServer = (0, http_1.createServer)((req, res) => {
-    const headers = {
-        "Access-Control-Allow-Origin": process.env.CLIENT_URL || "*",
-        "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
-        "Access-Control-Max-Age": 2592000, // 30 days
-        /** add other headers as per requirement */
-        };
-
-        if (req.method === "OPTIONS") {
-        res.writeHead(204, headers);
-        res.end();
-        return;
-        }
-
-        res.writeHead(405, headers);
-        res.end(`${req.method} is not allowed for the request.`);
-});
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
+const httpServer = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(httpServer, {
     cors: {
         origin: process.env.CLIENT_URL || "*",
@@ -47,5 +38,4 @@ io.on("connection", (socket) => {
         io.emit("messages", messages);
     });
 });
-
 httpServer.listen(3000);
