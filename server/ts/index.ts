@@ -5,7 +5,7 @@ const httpServer = createServer();
 
 const io = new Server(httpServer, {
     cors: {
-        origin: process.env.CLIENT_URL || "https://glittering-shortbread-b7c9da.netlify.app/",
+        origin: process.env.CLIENT_URL || "*",
     }
 });
 

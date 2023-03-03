@@ -5,7 +5,7 @@ const socket_io_1 = require("socket.io");
 const httpServer = (0, http_1.createServer)();
 const io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: "http://localhost:5173",
+        origin: process.env.CLIENT_URL || "*",
     }
 });
 let users = [];
@@ -31,5 +31,5 @@ io.on("connection", (socket) => {
         io.emit("messages", messages);
     });
 });
-console.log("Server is running on port 3000");
+
 httpServer.listen(3000);

@@ -7,7 +7,8 @@ import { io } from "socket.io-client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const socket = io(process.env.SERVER_URL || "https://chat-app-production-2f53.up.railway.app", {
-  autoConnect: false
+  autoConnect: false,
+  secure: true
 });
 
 const router = createBrowserRouter([
