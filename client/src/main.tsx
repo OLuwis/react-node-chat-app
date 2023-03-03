@@ -6,9 +6,9 @@ import ChatLayout from './components/ChatLayout';
 import { io } from "socket.io-client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const socket = io("https://chat-app-production-2f53.up.railway.app", {
+const socket = io(process.env.SERVER_URL || "https://chat-app-production-2f53.up.railway.app", {
   autoConnect: false
-})
+});
 
 const router = createBrowserRouter([
   {
