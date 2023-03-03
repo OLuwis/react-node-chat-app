@@ -5,7 +5,7 @@ const httpServer = createServer();
 
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:5173",
+        origin: "https://glittering-shortbread-b7c9da.netlify.app/",
     }
 });
 
@@ -33,7 +33,5 @@ io.on("connection", (socket) => {
         io.emit("messages", messages)
     });
 });
-
-console.log("Server running");
 
 httpServer.listen(3000);
