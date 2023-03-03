@@ -1,14 +1,16 @@
 import express from "express";
 import cors from "cors";
-import { createServer } from "https";
+import { createServer } from "http";
 import { Server } from "socket.io";
+
+const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors())
 
-const httpsServer = createServer(app);
+const httpServer = createServer(app);
 
-const io = new Server(httpsServer, {
+const io = new Server(httpServer, {
     cors: {
         origin: process.env.CLIENT_URL || "*",
     }
@@ -17,6 +19,10 @@ const io = new Server(httpsServer, {
 let users:{ user: string, id: string }[] = [];
 
 let messages:{ user: string, message: string, id: string }[] = [];
+
+app.get("/", (req, res) => {
+    res.send("Hi");
+});
 
 io.on("connection", (socket) => {
     if (socket.handshake.auth.name) {
@@ -39,4 +45,6 @@ io.on("connection", (socket) => {
     });
 });
 
-httpsServer.listen(3000);
+httpServer.listen(port, () => {
+    console.log("Server running");
+});

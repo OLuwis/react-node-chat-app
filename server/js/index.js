@@ -5,18 +5,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const https_1 = require("https");
+const http_1 = require("http");
 const socket_io_1 = require("socket.io");
+const port = process.env.PORT || 3000;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
-const httpsServer = (0, https_1.createServer)(app);
-const io = new socket_io_1.Server(httpsServer, {
+const httpServer = (0, http_1.createServer)(app);
+const io = new socket_io_1.Server(httpServer, {
     cors: {
         origin: process.env.CLIENT_URL || "*",
     }
 });
 let users = [];
 let messages = [];
+app.get("/", (req, res) => {
+    res.send("Hi");
+});
 io.on("connection", (socket) => {
     if (socket.handshake.auth.name) {
         users = users.concat({
@@ -38,4 +42,6 @@ io.on("connection", (socket) => {
         io.emit("messages", messages);
     });
 });
-httpsServer.listen(3000);
+httpServer.listen(port, () => {
+    console.log("Server running");
+});
